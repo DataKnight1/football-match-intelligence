@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+.ipynb_checkpoints
+
+# Data files (DO NOT commit large files)
+*.jsonl
+*.csv
+data/matches/
+data/aggregates/
+
+# Outputs
+outputs/
+*.png
+*.jpg
+*.mp4
+*.avi
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keep structure
+!.gitkeep

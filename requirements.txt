@@ -1,0 +1,35 @@
+# Core Data Science
+numpy>=1.24.0
+pandas>=2.0.0
+polars>=0.19.0
+pydantic>=2.0.0
+
+# Football Data
+kloppy>=3.0.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+mplsoccer>=1.1.0
+plotly>=5.14.0
+
+# Web App
+streamlit>=1.28.0
+
+# Jupyter
+jupyter>=1.0.0
+ipykernel>=6.20.0
+ipywidgets>=8.0.0
+
+# Advanced Analytics
+scipy>=1.10.0
+scikit-learn>=1.2.0
+statsmodels>=0.14.0
+
+# Testing
+pytest>=7.0.0
+
+# Optional: Video Processing
+opencv-python>=4.7.0
+Pillow>=9.5.0
+svglib>=1.5.0
