@@ -168,7 +168,36 @@ def create_animation_html(dataset, start_frame, end_frame, fps, show_camera):
     anim = animation.FuncAnimation(fig, animate, frames=len(frames_data),
                                   interval=interval, blit=True, repeat=True)
 
-    html_video = anim.to_html5_video()
+    # Use Pillow writer (GIF) instead of ffmpeg
+    # Save to temporary bytes buffer and embed as base64
+    try:
+        import io
+        from matplotlib.animation import PillowWriter
+        
+        # Create a bytes buffer
+        buffer = io.BytesIO()
+        
+        # Save animation as GIF using PillowWriter
+        writer = PillowWriter(fps=fps)
+        anim.save(buffer, writer=writer, format='gif')
+        buffer.seek(0)
+        
+        # Encode as base64 for HTML embedding
+        gif_base64 = base64.b64encode(buffer.read()).decode('utf-8')
+        
+        # Create HTML with embedded GIF
+        html_video = f'''
+        <div style="text-align: center;">
+            <img src="data:image/gif;base64,{gif_base64}" 
+                 style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
+                 alt="Match Animation"/>
+        </div>
+        '''
+    except Exception as e:
+        # Fallback to JavaScript-based HTML animation (slower but always works)
+        st.warning(f"GIF generation failed ({e}), using JavaScript animation (may be slower)")
+        html_video = anim.to_jshtml()
+    
     plt.close(fig)
     return html_video
 
