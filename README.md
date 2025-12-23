@@ -74,7 +74,7 @@ streamlit run Home.py
 Your browser should pop open automatically at `http://localhost:8501`. If not, just visit that URL.
 
 ### Live Demo
-[I'll deploy this and add the link here]
+🚀 **[View Live Application](https://football-match-intelligence.streamlit.app/)** - Explore the full interactive platform deployed on Streamlit Cloud
 
 ---
 
