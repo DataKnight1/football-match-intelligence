@@ -208,7 +208,7 @@ Phase-specific pass networks reveal how team structure evolves across possession
 
 ### Network Construction
 
-See [Match Overview](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/match_overview.md) for detailed node positioning and edge weight calculations. Key reminder:
+See [Match Overview](match_overview.md) for detailed node positioning and edge weight calculations. Key reminder:
 
 - **Nodes**: Positioned at centroid of touches within phase
 - **Edges**: Thickness ∝ pass frequency (minimum 3 passes for rendering)

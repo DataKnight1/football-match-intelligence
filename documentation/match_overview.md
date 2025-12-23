@@ -69,7 +69,7 @@ Pass network structure reveals team tactics:
 
 ![Match Momentum](../outputs/match_overview/momentum.png)
 
-Momentum chart shows temporal ebb-and-flow of match control. See [Game Flow](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/game_flow.md) for detailed momentum calculation.
+Momentum chart shows temporal ebb-and-flow of match control. See [Game Flow](game_flow.md) for detailed momentum calculation.
 
 **Formula summary:**
 

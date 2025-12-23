@@ -53,7 +53,7 @@ It's pretty straightforward:
 ```bash
 # 1. Grab the code
 git clone [your-repo-url]
-cd PySportXSkillCornerChallengeAnalytics
+cd football-match-intelligence
 
 # 2. Set up a Python environment
 python -m venv .venv

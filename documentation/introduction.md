@@ -200,14 +200,14 @@ For users new to the platform:
 ### Documentation
 
 Detailed module documentation available:
-- [match_overview.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/match_overview.md) - High-level match intelligence
-- [player_analysis.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/player_analysis.md) - Individual performance profiling
-- [team_analysis.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/team_analysis.md) - Collective tactical profiling
-- [player_comparison.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/player_comparison.md) - Head-to-head analysis
-- [game_flow.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/game_flow.md) - Temporal match analysis
-- [event_analysis.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/event_analysis.md) - Frame-level reconstruction
-- [data.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/data.md) - Complete data dictionary
-- [setup.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/setup.md) - Installation and configuration
+- [match_overview.md](match_overview.md) - High-level match intelligence
+- [player_analysis.md](player_analysis.md) - Individual performance profiling
+- [team_analysis.md](team_analysis.md) - Collective tactical profiling
+- [player_comparison.md](player_comparison.md) - Head-to-head analysis
+- [game_flow.md](game_flow.md) - Temporal match analysis
+- [event_analysis.md](event_analysis.md) - Frame-level reconstruction
+- [data.md](data.md) - Complete data dictionary
+- [setup.md](setup.md) - Installation and configuration
 
 ## Limitations and Known Issues
 
@@ -233,8 +233,8 @@ Tested on Chrome 120+, Firefox 121+, Edge 120+. Safari may exhibit rendering art
 
 ## Support and Troubleshooting
 
-For installation issues, consult [setup.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/setup.md).
+For installation issues, consult [setup.md](setup.md).
 
-For data format questions, refer to [data.md](file:///c:/Users/Tiago/Solutions/Cursos/PySportXSkillCornerChallengeAnalytics/documentation/data.md).
+For data format questions, refer to [data.md](data.md).
 
 For algorithm implementation details, see individual module documentation files (listed above).
