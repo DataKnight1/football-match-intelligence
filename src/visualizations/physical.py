@@ -53,11 +53,11 @@ def plot_speed_distribution(
     :return: Matplotlib Figure.
     """
     zones = [
-        (0, 7, 'Walking', '#D3D3D3'),       # Grey
-        (7, 14, 'Jogging', '#C1E1C1'),      # Light Greenish Grey
-        (14, 20, 'Running', '#90EE90'),     # Light Green
-        (20, 25, 'HSR', '#32CD32'),         # Medium Green
-        (25, 45, 'Sprinting', '#32FF69')    # Bright Green (Solution Green)
+        (0, 7, 'Walking', '#D3D3D3'),
+        (7, 14, 'Jogging', '#C1E1C1'),
+        (14, 20, 'Running', '#90EE90'),
+        (20, 25, 'HSR', '#32CD32'),
+        (25, 45, 'Sprinting', '#32FF69')
     ]
     
     fig, ax = plt.subplots(figsize=(10, 6))

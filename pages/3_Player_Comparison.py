@@ -181,7 +181,6 @@ def main():
     p2_short = p2_name.split(' (')[0]
 
     with st.spinner("Calculating detailed metrics..."):
-        # Check if player columns exist in tracking data
         p1_cols_exist = all(col in tracking_df.columns for col in [f"{p1_id}_x", f"{p1_id}_y"])
         p2_cols_exist = all(col in tracking_df.columns for col in [f"{p2_id}_x", f"{p2_id}_y"])
         
@@ -194,7 +193,6 @@ def main():
                 st.warning(f"Missing tracking data for: {p2_short}")
             return
         
-        # Original metrics logic for Pizza/Proximity
         df_a = tracking_df[[f"{p1_id}_x", f"{p1_id}_y"]].dropna()
         df_b = tracking_df[[f"{p2_id}_x", f"{p2_id}_y"]].dropna()
 
@@ -405,7 +403,6 @@ def main():
         st.markdown("#### Space Dominance (Delta Map)")
         st.markdown(f"Green = {p1_short} | Purple = {p2_short}")
         
-        # Verify columns still exist (defensive check)
         if all(col in tracking_df.columns for col in [f"{p1_id}_x", f"{p1_id}_y", f"{p2_id}_x", f"{p2_id}_y"]):
             p1_tracks = tracking_df[[f"{p1_id}_x", f"{p1_id}_y"]].dropna().rename(
                 columns={f"{p1_id}_x": 'x', f"{p1_id}_y": 'y'}

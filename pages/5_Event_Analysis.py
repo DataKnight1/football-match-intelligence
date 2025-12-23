@@ -14,12 +14,12 @@ import sys
 from pathlib import Path
 import base64
 
-PRIMARY_COLOR = "#32FF69" 
-SECONDARY_COLOR = "#3385FF" # Changed to Blue for contrast
-PITCH_SURFACE_COLOR = "#F8F9FA" 
-PITCH_LINE_COLOR = "#28A745" 
+PRIMARY_COLOR = "#32FF69"
+SECONDARY_COLOR = "#3385FF"
+PITCH_SURFACE_COLOR = "#F8F9FA"
+PITCH_LINE_COLOR = "#28A745"
 CAMERA_OUTLINE_COLOR = PRIMARY_COLOR
-ENGAGEMENT_BORDER_COLOR = "#FF7A00" 
+ENGAGEMENT_BORDER_COLOR = "#FF7A00"
 
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -101,7 +101,6 @@ def create_animation_html(dataset, start_frame, end_frame, fps, show_camera):
     fig, ax = pitch.draw(figsize=(16, 9))
     fig.set_dpi(80)
     fig.patch.set_facecolor('white')
-    # Reserve space: Left=0, Bottom=0, Right=0.9 (for legend), Top=0.85 (more space for title)
     fig.tight_layout(rect=[0, 0, 0.9, 0.85]) 
 
     marker_kwargs = {'marker': 'o', 'markeredgecolor': '#1A1A1A', 'linestyle': 'None', 'linewidth': 3}
@@ -115,13 +114,12 @@ def create_animation_html(dataset, start_frame, end_frame, fps, show_camera):
                          marker='o', linewidth=3, linestyle='None')
 
     camera_patch = None
-    # Use ax.text with transform=ax.transAxes to ensure it works with blitting and is positioned relative to the pitch
     title_text = ax.text(0.5, 1.02, '', color='#1A1A1A', fontsize=18,
                         fontweight='bold', ha='center', va='bottom',
                         transform=ax.transAxes, zorder=30)
 
     ax.legend(
-        bbox_to_anchor=(1.01, 0.5), # Place outside right, vertically centered
+        bbox_to_anchor=(1.01, 0.5),
         loc='center left',
         fontsize=12,
         framealpha=0.95,
@@ -168,24 +166,18 @@ def create_animation_html(dataset, start_frame, end_frame, fps, show_camera):
     anim = animation.FuncAnimation(fig, animate, frames=len(frames_data),
                                   interval=interval, blit=True, repeat=True)
 
-    # Use Pillow writer (GIF) instead of ffmpeg
-    # Save to temporary bytes buffer and embed as base64
     try:
         import io
         from matplotlib.animation import PillowWriter
         
-        # Create a bytes buffer
         buffer = io.BytesIO()
         
-        # Save animation as GIF using PillowWriter
         writer = PillowWriter(fps=fps)
-        anim.save(buffer, writer=writer, format='gif')
+        anim.save(buffer, writer=writer)
         buffer.seek(0)
         
-        # Encode as base64 for HTML embedding
         gif_base64 = base64.b64encode(buffer.read()).decode('utf-8')
         
-        # Create HTML with embedded GIF
         html_video = f'''
         <div style="text-align: center;">
             <img src="data:image/gif;base64,{gif_base64}" 
@@ -194,7 +186,6 @@ def create_animation_html(dataset, start_frame, end_frame, fps, show_camera):
         </div>
         '''
     except Exception as e:
-        # Fallback to JavaScript-based HTML animation (slower but always works)
         st.warning(f"GIF generation failed ({e}), using JavaScript animation (may be slower)")
         html_video = anim.to_jshtml()
     
@@ -245,12 +236,11 @@ def main():
         "Max Frames to Load (0 = All)",
         min_value=0,
         max_value=150000,
-        value=0, # Default to All for proper analysis
+        value=0,
         step=1000,
         help="Set to 0 to load the entire match. Warning: High frame counts may be slow."
     )
     
-    # Handle '0' as None (All frames)
     limit_arg = None if max_frames == 0 else max_frames
 
     if st.sidebar.button("Load Match Data", type="primary"):
@@ -309,8 +299,6 @@ def main():
         st.markdown("### Animation Settings")
         st.markdown("")
 
-        # Custom Toggle for Full Duration
-        # Custom Toggle for Full Duration - Added key for state stability
         use_full_duration = st.checkbox("Animate Entire Loaded Duration (from Start Frame)", value=False, key="full_duration_toggle")
         
         col1, col2, col3 = st.columns(3, gap="medium")
@@ -353,7 +341,6 @@ def main():
 
         show_camera = st.checkbox("Show Broadcast Camera View", value=True)
         
-        # Warning for large generations
         if (anim_end - anim_start) > 5000:
              st.warning(f"Generating animation for {anim_end - anim_start} frames. This may take a significant amount of time and memory.")
 
@@ -452,7 +439,6 @@ def main():
 
         st.write(f"**Select an event from the table** ({len(filtered_events)} events found):")
 
-        # Sort events by frame for better usability
         if start_frame_col:
             filtered_events = filtered_events.sort_values(start_frame_col)
 
@@ -460,7 +446,7 @@ def main():
             filtered_events[display_cols].dropna(axis=1, how='all'),
             hide_index=True,
             on_select="rerun",
-            selection_mode="multi-row", # Enable multi-selection for clips
+            selection_mode="multi-row",
             use_container_width=True,
             height=300
         )
@@ -469,25 +455,21 @@ def main():
             st.info("Select one or more events from the table above to visualize them.")
             st.stop()
 
-        # Get all selected events
         selected_indices = selected_event_rows["selection"]["rows"]
         selected_events_df = filtered_events.iloc[selected_indices]
         
-        # Determine Clip Range
         if start_frame_col and end_frame_col:
             clip_start_frame = int(selected_events_df[start_frame_col].min())
             clip_end_frame = int(selected_events_df[end_frame_col].max())
             
-            # Add padding if single event, else use exact range or small padding
             if len(selected_indices) == 1:
-                padding = 50 # 5 seconds approx
+                padding = 50
             else:
-                padding = 20 # 2 seconds
+                padding = 20
         else:
              st.error("Cannot determine clip range from selected events.")
              st.stop()
              
-        # Primary event for context (use the first selected)
         selected_event = selected_events_df.iloc[0]
 
         st.markdown("---")
@@ -503,7 +485,7 @@ def main():
         with col3:
              st.metric("Clip End", f"{clip_end_frame:,}")
         with col4:
-             duration_s = (clip_end_frame - clip_start_frame) / 10.0 # Approx 10fps
+             duration_s = (clip_end_frame - clip_start_frame) / 10.0
              st.metric("Clip Duration", f"{duration_s:.1f}s")
 
         if len(selected_indices) == 1:
@@ -514,10 +496,8 @@ def main():
 
         st.markdown("---")
 
-        # Interactive Sequence Viewer
         st.markdown("### Interactive Event Sequence Viewer")
 
-        # Range Check
         loaded_frames_min = dataset.frames[0].frame_id if dataset.frames else 0
         loaded_frames_max = dataset.frames[-1].frame_id if dataset.frames else 0
         
@@ -536,37 +516,29 @@ def main():
              st.caption(f"Note: Clip end adjusted from {clip_end_frame} to {loaded_frames_max} to match loaded data.")
              clip_end_frame = loaded_frames_max
 
-        # Build sequence context
         try:
             from src.visualizations.sequence import build_sequence_viewer
             from src.preprocessing.data import convert_tracking_wide_to_long
 
-            # Convert dataset to DataFrame for sequence viewer
             tracking_df_wide = dataset.to_df(engine='pandas')
 
-            # Ensure 'frame' column available (handle Index case)
             if 'frame_id' not in tracking_df_wide.columns and 'frame' not in tracking_df_wide.columns:
                  tracking_df_wide = tracking_df_wide.reset_index()
 
-            # CRITICAL: Kloppy uses 'frame_id', but sync functions expect 'frame'
             if 'frame_id' in tracking_df_wide.columns and 'frame' not in tracking_df_wide.columns:
                 tracking_df_wide = tracking_df_wide.rename(columns={'frame_id': 'frame'})
             if 'period_id' in tracking_df_wide.columns and 'period' not in tracking_df_wide.columns:
                 tracking_df_wide = tracking_df_wide.rename(columns={'period_id': 'period'})
 
-            # Custom slicing for Clip Range
-            # padding was determined above (50 for single, 20 for multi)
             start_slice = max(loaded_frames_min, clip_start_frame - padding)
             end_slice = min(loaded_frames_max, clip_end_frame + padding)
             
-            # Slice the dataframe
             window_df = tracking_df_wide[
                 (tracking_df_wide['frame'] >= start_slice) & 
                 (tracking_df_wide['frame'] <= end_slice)
             ].copy()
 
             if not window_df.empty:
-                # Convert the window to long format for visualization
                 window_long = convert_tracking_wide_to_long(window_df, metadata)
 
                 if not window_long.empty:
@@ -579,12 +551,11 @@ def main():
                     ]
 
                     
-                    # Initialize dictionaries
                     team_colors = {}
                     team_names = {}
 
                     if metadata:
-                        home_color = "#32FF69" 
+                        home_color = "#32FF69"
                         away_color = "#3385FF"
                         if 'home_team_id' in metadata:
                             tid = str(metadata['home_team_id'])
@@ -596,15 +567,12 @@ def main():
                             team_colors[tid] = away_color
                             team_names[tid] = metadata.get('away_team_name', f"Team {tid}")
 
-                    # Prepare event list for markers AND feed
                     event_list_for_viz = []
                     for _, evt in nearby_events.iterrows():
                         evt_dict = evt.to_dict()
                         evt_dict['frame'] = int(evt[start_frame_col])
                         evt_dict['event_id'] = evt.get('event_id', -1)
                         
-                        # Ensure minimal coordinates for markers
-                        # Priority 1: Event Fields
                         if 'x' in evt and 'y' in evt and pd.notna(evt['x']):
                             evt_dict['x'] = evt['x']
                             evt_dict['y'] = evt['y']
@@ -614,11 +582,9 @@ def main():
                         elif 'location_x' in evt and 'location_y' in evt and pd.notna(evt['location_x']):
                              evt_dict['x'] = evt['location_x']
                              evt_dict['y'] = evt['location_y']
-                         # Priority 2: Lookup from Player Tracking Data (Fallback)
                         elif 'player_id' in evt and pd.notna(evt['player_id']) and not window_long.empty:
                              pid_lookup = evt['player_id']
                              frame_lookup = evt_dict['frame']
-                             # Find row for this player and frame
                              track_row = window_long[
                                  (window_long['frame'] == frame_lookup) & 
                                  (window_long['player_id'] == pid_lookup)
@@ -630,22 +596,20 @@ def main():
 
                         event_list_for_viz.append(evt_dict)
                             
-                    # IDs of user-selected events (to highlight or filter feed)
                     selected_ids = selected_events_df['event_id'].tolist() if 'event_id' in selected_events_df.columns else []
 
-                    # Build interactive Plotly animation using long format data
                     fig = build_sequence_viewer(
                         tracking_df=window_long,
                         start_frame=start_frame,
                         end_frame=end_frame,
-                        context=None, # Not using sync context obj anymore
+                        context=None,
                         show_event_markers=True,
-                        event_list=event_list_for_viz, # Contains all nearby events with details
+                        event_list=event_list_for_viz,
                         fps=10,
                         visible_trails=15,
                         team_colors=team_colors,
-                        team_names=team_names, # NEW: Pass team names
-                        active_event_ids=selected_ids # Highlight multiple selected events
+                        team_names=team_names,
+                        active_event_ids=selected_ids
                     )
 
                     st.plotly_chart(fig, use_container_width=True)
@@ -664,7 +628,6 @@ def main():
 
         events_in_frame = pd.DataFrame([selected_event]) 
         
-        # Restore event_frame_id for snapshot context (use primary event)
         if start_frame_col:
             event_frame_id = int(selected_event[start_frame_col])
         else:
@@ -695,7 +658,6 @@ def main():
                 if len(associated_events) > 0:
                     events_in_frame = pd.concat([events_in_frame, associated_events], ignore_index=True)
         
-        # Deduplicate explicitly by event_id if available, or all columns
         if 'event_id' in events_in_frame.columns:
             events_in_frame = events_in_frame.drop_duplicates(subset=['event_id'])
         else:
@@ -704,7 +666,6 @@ def main():
         st.markdown(f"### Events at Frame {event_frame_id}")
         st.write(f"**Select which events to visualize on the pitch** ({len(events_in_frame)} events at this frame):")
         
-        # Range Check again for static plot
         matching_frame, frame_diff = utils.find_frame_by_id(dataset, event_frame_id)
         
         if not matching_frame:
@@ -738,9 +699,6 @@ def main():
             show_camera_event = st.checkbox("Show Camera View", value=True, key="event_camera")
 
             if len(df_events_to_plot) > 0:
-                # Use robust extraction here? 
-                # We need to make sure the same fix from match.py is available if imported via __init__
-                # visualizations.extract_frame_data calls match.extract_frame_data, so yes.
                 
                 home_players, away_players, ball_pos, camera_polygon = visualizations.extract_frame_data(matching_frame)
                 all_players = home_players + away_players

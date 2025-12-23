@@ -54,13 +54,13 @@ def plot_pizza_chart(
             pct = 0
         player_percentiles.append(int(pct))
         
-    slice_colors = ["#32FF69"] * len(parameter_list) # All green for now
+    slice_colors = ["#32FF69"] * len(parameter_list)
     text_colors = ["#F2F2F2"] * len(parameter_list)
     
     baker = PyPizza(
         params=parameter_list,
-        background_color="#18181A",      # Dark Back
-        straight_line_color="#E0E0E0",   # Grid
+        background_color="#18181A",
+        straight_line_color="#E0E0E0",
         straight_line_lw=1,
         last_circle_lw=1,
         last_circle_color="#E0E0E0",

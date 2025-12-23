@@ -51,7 +51,7 @@ def plot_physical_scatter(
         data=df, 
         x=x_metric, 
         y=y_metric, 
-        color='#E0E0E0', 
+        color='#E0E0E0',
         s=80, 
         alpha=0.6, 
         ax=ax,
@@ -64,7 +64,7 @@ def plot_physical_scatter(
             ax.scatter(
                 p1_data[x_metric], 
                 p1_data[y_metric], 
-                color='#32FF69', 
+                color='#32FF69',
                 s=200, 
                 edgecolor='black', 
                 label=p1_name,
@@ -85,7 +85,7 @@ def plot_physical_scatter(
             ax.scatter(
                 p2_data[x_metric], 
                 p2_data[y_metric], 
-                color='#3385FF', 
+                color='#3385FF',
                 s=200, 
                 edgecolor='black', 
                 label=p2_name,

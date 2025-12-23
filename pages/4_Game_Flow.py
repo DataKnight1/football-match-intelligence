@@ -77,8 +77,8 @@ def main():
             away_color = utils.get_team_color(metadata['away_team_name'])
             
             if home_color == away_color:
-                home_color = "#FF3333" 
-                away_color = "#3385FF" 
+                home_color = "#FF3333"
+                away_color = "#3385FF"
                 
         except Exception as e:
             st.error(f"Error loading data: {e}")

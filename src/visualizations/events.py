@@ -62,7 +62,7 @@ def plot_event_sequence(
     """
     fig, ax = plt.subplots(figsize=(12, 8))
     pitch = Pitch(pitch_type='skillcorner', pitch_length=pitch_length, pitch_width=pitch_width,
-                 pitch_color='#2b2b2b', line_color='#4a4a4a') 
+                 pitch_color='#2b2b2b', line_color='#4a4a4a')
     pitch.draw(ax=ax)
     
     if not sequence_events:

@@ -129,12 +129,12 @@ def plot_energy_expenditure_pizza(
     for i, row in attacking.iterrows():
         params.append(clean_phase(row['tactical_phase']))
         values.append(round(row['dist_frame'], 2)) 
-        colors.append("#32FF69") 
+        colors.append("#32FF69")
         
     for i, row in defending.iterrows():
         params.append(clean_phase(row['tactical_phase']))
         values.append(round(row['dist_frame'], 2))
-        colors.append("#FF5555") 
+        colors.append("#FF5555")
         
     if not values:
         return plt.figure()
@@ -276,11 +276,11 @@ def plot_comparison_pizza(
         params=params,                  
         min_range=min_range,            
         max_range=max_range,            
-        background_color="#FAFAFA",     
-        straight_line_color="#EBEBE9",  
+        background_color="#FAFAFA",
+        straight_line_color="#EBEBE9",
         straight_line_lw=1,             
         last_circle_lw=0,               
-        last_circle_color="#EBEBE9",    
+        last_circle_color="#EBEBE9",
         other_circle_lw=0,              
         other_circle_ls="-",            
         inner_circle_size=20            
@@ -291,8 +291,8 @@ def plot_comparison_pizza(
         compare_values=values_b,        
         figsize=(8, 8),                 
         color_blank_space="same",       
-        slice_colors=["#32FF69"] * len(params), 
-        value_colors=["#000000"] * len(params), 
+        slice_colors=["#32FF69"] * len(params),
+        value_colors=["#000000"] * len(params),
         blank_alpha=0.4,                
         kwargs_slices=dict(
             facecolor="#32FF69", edgecolor="#F2F2F2",

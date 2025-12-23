@@ -370,10 +370,8 @@ def main():
             
             st.markdown("#### Speed Zones")
             
-            # Get FPS from dataset metadata or default
             fps = getattr(dataset.metadata, 'frame_rate', 10.0) if dataset else 10.0
             
-            # Pass time deltas if available for robust calculation
             time_deltas = player_df['time_delta'].values if 'time_delta' in player_df.columns else None
             
             fig = visualizations.plot_speed_distribution(
@@ -471,13 +469,11 @@ def main():
                 
                 p_events_viz = p_events_viz.sort_values(start_col).reset_index(drop=True)
                 
-                # Need FPS and period starts for clock calculation
                 fps = getattr(dataset.metadata, 'frame_rate', 10.0) if dataset else 10.0
                 period_starts = get_period_starts(metadata)
                 
                 event_options = []
                 for i, row in p_events_viz.iterrows():
-                    # Deduce period if missing
                     evt_period = row.get('period', 1)
                     if 'period' not in row and period_starts:
                          p2_start = period_starts.get(2, 999999)
@@ -590,14 +586,11 @@ def main():
                         pitch.scatter(subset_df.iloc[0]['x'], subset_df.iloc[0]['y'], ax=ax, c='#D3D3D3', s=40, marker='o', zorder=2)
                         pitch.scatter(subset_df.iloc[-1]['x'], subset_df.iloc[-1]['y'], ax=ax, c='#D3D3D3', s=40, marker='s', zorder=2)
                         
-                        # Calculate formatted match clock
                         fps = getattr(dataset.metadata, 'frame_rate', 10.0) if dataset else 10.0
                         period_starts = get_period_starts(metadata)
                         
-                        # Determine period if not present
-                        evt_period = current_event.get('period', 1) # Default to 1
+                        evt_period = current_event.get('period', 1)
                         if 'period' not in current_event and period_starts:
-                             # Simple deduction
                              p2_start = period_starts.get(2, 999999)
                              if current_event[start_col] >= p2_start:
                                  evt_period = 2

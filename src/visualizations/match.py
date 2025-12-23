@@ -876,7 +876,7 @@ def plot_frame_with_events(
                     x_end = -x_end
                     y_end = -y_end
             
-            color = '#32FF69' if is_home else '#3385FF' 
+            color = '#32FF69' if is_home else '#3385FF'
             
             etype = str(ev.get('event_type', '')).lower()
             

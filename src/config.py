@@ -33,6 +33,6 @@ LOCAL_DATA_DIR = Path(__file__).parent.parent / "opendata-master" / "data" / "ma
 USE_LOCAL_DATA_FIRST = True  
 
 TEAM_COLORS = {
-    "Home": "#32FF69",  
-    "Away": "#3385FF"   
+    "Home": "#32FF69",
+    "Away": "#3385FF"
 }

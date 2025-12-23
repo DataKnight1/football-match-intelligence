@@ -128,23 +128,23 @@ def build_sequence_viewer(
                     
                     if 'shot' in etype:
                         symbol = 'triangle-up'
-                        color = '#E63946' 
+                        color = '#E63946'
                     elif 'pass' in etype:
                         symbol = 'diamond'
-                        color = '#457B9D' 
+                        color = '#457B9D'
                     elif 'card' in etype:
                         symbol = 'square'
                     elif 'goal' in etype:
                         symbol = 'star'
-                        color = '#FFD700' 
+                        color = '#FFD700'
                     elif 'duel' in etype:
                         symbol = 'x'
                     elif 'on_ball_engagement' in etype:
                         symbol = 'hexagon'
-                        color = '#8A2BE2' 
+                        color = '#8A2BE2'
                     elif 'passing_option' in etype:
                         symbol = 'circle-open'
-                        color = '#555555' 
+                        color = '#555555'
                         size = 6 
                     
                     size = 12 if is_active else 8
@@ -165,8 +165,8 @@ def build_sequence_viewer(
 
     plotly_frames = []
     
-    c_home = "#32FF69" 
-    c_away = "#3385FF" 
+    c_home = "#32FF69"
+    c_away = "#3385FF"
     
     arrow_scale = 0.5 
     
@@ -185,7 +185,7 @@ def build_sequence_viewer(
                     traces.append(go.Scatter(
                         x=ball_trail['x'], y=ball_trail['y'],
                         mode='lines',
-                        line=dict(color='#FFA500', width=3), 
+                        line=dict(color='#FFA500', width=3),
                         opacity=0.6,
                         name='Ball Trail',
                         showlegend=False,
@@ -197,7 +197,7 @@ def build_sequence_viewer(
             traces.append(go.Scatter(
                 x=ball_curr['x'], y=ball_curr['y'],
                 mode='markers',
-                marker=dict(size=12, color='#FFA500', line=dict(color='black', width=2)), 
+                marker=dict(size=12, color='#FFA500', line=dict(color='black', width=2)),
                 name='Ball',
                 hoverinfo='text',
                 text='BALL'
@@ -242,7 +242,7 @@ def build_sequence_viewer(
                     text=jersey,
                     textposition='middle center',
                     marker=dict(size=16, color=color, line=dict(color='black', width=1.5)),
-                    textfont=dict(size=10, color='white' if color != '#32FF69' else 'black', family='Arial Black'), 
+                    textfont=dict(size=10, color='white' if color != '#32FF69' else 'black', family='Arial Black'),
                     name=t_name,
                     texttemplate="%{text}",
                     hovertemplate=hover_text,
