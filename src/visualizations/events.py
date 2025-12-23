@@ -148,14 +148,14 @@ def plot_event_sequence(
                 if frame:
                     frame_data = tracking_df[tracking_df['frame'] == frame]
                     defenders = frame_data[frame_data['team_id'] != team_id]
-                
-                if not defenders.empty and x_start is not None:
-                    defenders = defenders.copy()
-                    defenders['dist'] = np.sqrt((defenders['x'] - x_start)**2 + (defenders['y'] - y_start)**2)
-                    nearest = defenders.nsmallest(3, 'dist')
                     
-                    pitch.scatter(nearest['x'], nearest['y'], ax=ax, 
-                                 c='#ff4d4d', s=50, alpha=0.4, zorder=1, edgecolors='none')
+                    if not defenders.empty and x_start is not None:
+                        defenders = defenders.copy()
+                        defenders['dist'] = np.sqrt((defenders['x'] - x_start)**2 + (defenders['y'] - y_start)**2)
+                        nearest = defenders.nsmallest(3, 'dist')
+                        
+                        pitch.scatter(nearest['x'], nearest['y'], ax=ax, 
+                                     c='#ff4d4d', s=50, alpha=0.4, zorder=1, edgecolors='none')
 
         if x_start is not None:
             is_shot = str(event.get('end_type') or '').lower() == 'shot'
