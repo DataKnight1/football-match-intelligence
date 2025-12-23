@@ -181,6 +181,19 @@ def main():
     p2_short = p2_name.split(' (')[0]
 
     with st.spinner("Calculating detailed metrics..."):
+        # Check if player columns exist in tracking data
+        p1_cols_exist = all(col in tracking_df.columns for col in [f"{p1_id}_x", f"{p1_id}_y"])
+        p2_cols_exist = all(col in tracking_df.columns for col in [f"{p2_id}_x", f"{p2_id}_y"])
+        
+        if not p1_cols_exist or not p2_cols_exist:
+            st.error(f"⚠️ Tracking data not available for the selected players.")
+            st.info("This may happen if players did not participate in the match or tracking data is incomplete.")
+            if not p1_cols_exist:
+                st.warning(f"Missing tracking data for: {p1_short}")
+            if not p2_cols_exist:
+                st.warning(f"Missing tracking data for: {p2_short}")
+            return
+        
         # Original metrics logic for Pizza/Proximity
         df_a = tracking_df[[f"{p1_id}_x", f"{p1_id}_y"]].dropna()
         df_b = tracking_df[[f"{p2_id}_x", f"{p2_id}_y"]].dropna()
@@ -392,18 +405,22 @@ def main():
         st.markdown("#### Space Dominance (Delta Map)")
         st.markdown(f"Green = {p1_short} | Purple = {p2_short}")
         
-        p1_tracks = tracking_df[[f"{p1_id}_x", f"{p1_id}_y"]].dropna().rename(
-            columns={f"{p1_id}_x": 'x', f"{p1_id}_y": 'y'}
-        )
-        p2_tracks = tracking_df[[f"{p2_id}_x", f"{p2_id}_y"]].dropna().rename(
-            columns={f"{p2_id}_x": 'x', f"{p2_id}_y": 'y'}
-        )
-        
-        fig_delta = visualizations.plot_delta_heatmap(
-            p1_tracks, p2_tracks, p1_short, p2_short
-        )
-        st.pyplot(fig_delta)
-        plt.close(fig_delta)
+        # Verify columns still exist (defensive check)
+        if all(col in tracking_df.columns for col in [f"{p1_id}_x", f"{p1_id}_y", f"{p2_id}_x", f"{p2_id}_y"]):
+            p1_tracks = tracking_df[[f"{p1_id}_x", f"{p1_id}_y"]].dropna().rename(
+                columns={f"{p1_id}_x": 'x', f"{p1_id}_y": 'y'}
+            )
+            p2_tracks = tracking_df[[f"{p2_id}_x", f"{p2_id}_y"]].dropna().rename(
+                columns={f"{p2_id}_x": 'x', f"{p2_id}_y": 'y'}
+            )
+            
+            fig_delta = visualizations.plot_delta_heatmap(
+                p1_tracks, p2_tracks, p1_short, p2_short
+            )
+            st.pyplot(fig_delta)
+            plt.close(fig_delta)
+        else:
+            st.warning("Tracking data unavailable for delta heatmap visualization.")
 
 if __name__ == "__main__":
     main()
