@@ -18,13 +18,6 @@ dist/
 data/matches/
 data/aggregates/
 
-# Outputs
-outputs/
-*.png
-*.jpg
-*.mp4
-*.avi
-
 # IDE
 .vscode/
 .idea/
