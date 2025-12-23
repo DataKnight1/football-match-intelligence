@@ -345,8 +345,8 @@ def main():
                     st.success("Animation created.")
                     st.markdown("---")
                     st.markdown("### Animation Player")
-                    st.markdown("**Controls**: Use the player controls below to play, pause, adjust speed, and navigate frames.")
-                    st.markdown(html_video, unsafe_allow_html=True)
+                    
+                    st.components.v1.html(html_video, height=1000, scrolling=True)
 
                 except Exception as e:
                     st.error(f"Error creating animation: {e}")
