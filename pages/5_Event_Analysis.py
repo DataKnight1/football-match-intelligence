@@ -166,28 +166,7 @@ def create_animation_html(dataset, start_frame, end_frame, fps, show_camera):
     anim = animation.FuncAnimation(fig, animate, frames=len(frames_data),
                                   interval=interval, blit=True, repeat=True)
 
-    try:
-        import io
-        from matplotlib.animation import PillowWriter
-        
-        buffer = io.BytesIO()
-        
-        writer = PillowWriter(fps=fps)
-        anim.save(buffer, writer=writer)
-        buffer.seek(0)
-        
-        gif_base64 = base64.b64encode(buffer.read()).decode('utf-8')
-        
-        html_video = f'''
-        <div style="text-align: center;">
-            <img src="data:image/gif;base64,{gif_base64}" 
-                 style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
-                 alt="Match Animation"/>
-        </div>
-        '''
-    except Exception as e:
-        st.warning(f"GIF generation failed ({e}), using JavaScript animation (may be slower)")
-        html_video = anim.to_jshtml()
+    html_video = anim.to_jshtml()
     
     plt.close(fig)
     return html_video
