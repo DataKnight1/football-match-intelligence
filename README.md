@@ -76,6 +76,10 @@ Your browser should pop open automatically at `http://localhost:8501`. If not, j
 ### Live Demo
 🚀 **[View Live Application](https://football-match-intelligence.streamlit.app/)** - Explore the full interactive platform deployed on Streamlit Cloud
 
+
+### Video Walkthrough
+<video src="assets/video/Football_Match_Intelligence.mp4" width="100%" controls></video>
+
 ---
 
 ## What Can It Do?
