@@ -78,8 +78,7 @@ Your browser should pop open automatically at `http://localhost:8501`. If not, j
 
 
 ### Video Walkthrough
-[![Watch the video](assets/video/thumbnail.png)](assets/video/Football_Match_Intelligence.mp4)
-*_Click the image above to watch the video walkthrough_*
+[**▶️ Watch Video Walkthrough**](https://1drv.ms/v/c/97194d2ac869706f/IQA_xRo9wkcpQ7CC9K00jF6JAbTjJJ0tq7UK7gh-f3AVArI?e=eSQ4kT)
 
 ---
 
